@@ -36,6 +36,6 @@ class Block:
     # Drawing piece on board
     def draw(self, board):
         for i in range(len(self.blockShape) - 1):
-            for j in range(len(self.blockShape[i] - 1)):
+            for j in range(len(self.blockShape[i]) - 1):
                 board[self.x + i][self.y + j] = self.blockShape[i][j]
         return board
