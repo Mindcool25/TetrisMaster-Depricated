@@ -39,3 +39,20 @@ class Block:
             for j in range(len(self.blockShape[i])):
                 board[self.y + i][self.x - j] = self.blockShape[i][j]
         return board
+
+    # Moving piece down
+    def drop(self):
+        self.y += 1
+        return
+
+    # Moving piece to the right
+    def right(self):
+        self.x += 1
+        return
+
+    # Moving piece to the lift
+    def left(self):
+        self.x -= 1
+        return
+
+    
