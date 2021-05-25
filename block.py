@@ -1,7 +1,8 @@
 class Block:
-    # Initalizing block type when object is created and defining the shape
+    # Initializing block type when object is created and defining the shape
     def __init__(self, blockType):
         self.type = blockType
+        self.blockShape = []
         self.shape()
         return
 
@@ -26,3 +27,4 @@ class Block:
     # Easy one liner to rotate the array of a block
     def rotate(self):
         self.blockShape = list(zip(*self.blockShape[::-1]))
+        return
