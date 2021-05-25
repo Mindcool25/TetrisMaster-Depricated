@@ -1,6 +1,6 @@
 from colorama import Fore
 from random import randint
-import block
+
 
 def createBoard():
     playfield = []
