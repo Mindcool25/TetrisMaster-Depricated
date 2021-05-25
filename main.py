@@ -1,17 +1,18 @@
 from colorama import Fore
 from random import randint
-
+import block
 
 def createBoard():
     playfield = []
     for i in range(21):
         row = []
         for j in range(10):
-            row.append(randint(0,7))
+            row.append(randint(0, 7))
         playfield.append(row)
     return playfield
 
-def PrintBoard(playfield):
+
+def printBoard(playfield):
     board = ""
     for i in playfield:
         board += Fore.WHITE + "|"
@@ -36,6 +37,7 @@ def PrintBoard(playfield):
     board += (Fore.WHITE + "_" * 32) + "\n"
     print(board)
 
+
 for i in range(20):
     createBoard()
-    PrintBoard(createBoard())
+    printBoard(createBoard())
