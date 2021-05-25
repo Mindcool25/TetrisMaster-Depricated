@@ -4,12 +4,8 @@ import block
 
 
 def createBoard() -> object:
-    """
-
-    :rtype: object
-    """
     playfield = []
-    for i in range(21):
+    for i in range(22):
         row = []
         for j in range(10):
             row.append(0)
@@ -43,7 +39,6 @@ def printBoard(playfield):
     print(board)
 
 
-for i in range(20):
-    printBoard(createBoard())
-    block = block.Block(2)
-    block.draw(createBoard())
+block = block.Block(randint(1, 7))
+block.rotate()
+printBoard(block.draw(createBoard()))

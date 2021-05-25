@@ -4,7 +4,7 @@ class Block:
     # Initializing block type when object is created and defining the shape
     def __init__(self, blockType):
         self.x = 4
-        self.y = 22
+        self.y = 0
         self.type = blockType
         self.blockShape = []
         self.shape()
@@ -35,7 +35,7 @@ class Block:
 
     # Drawing piece on board
     def draw(self, board):
-        for i in range(len(self.blockShape) - 1):
-            for j in range(len(self.blockShape[i]) - 1):
-                board[self.x + i][self.y + j] = self.blockShape[i][j]
+        for i in range(len(self.blockShape)):
+            for j in range(len(self.blockShape[i])):
+                board[self.y + i][self.x - j] = self.blockShape[i][j]
         return board
