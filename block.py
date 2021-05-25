@@ -1,9 +1,11 @@
 class Block:
+    # Initalizing block type when object is created and defining the shape
     def __init__(self, blockType):
         self.type = blockType
         self.shape()
         return
 
+    # Setting the shape from block type to a matrix
     def shape(self):
         if self.type == 1:
             self.blockShape = [[1, 1, 1, 1], [0, 0, 0, 0]]
@@ -21,5 +23,6 @@ class Block:
             self.blockShape = [[0, 0, 7, 0], [0, 7, 7, 7]]
         return
 
+    # Easy one liner to rotate the array of a block
     def rotate(self):
         self.blockShape = list(zip(*self.blockShape[::-1]))
