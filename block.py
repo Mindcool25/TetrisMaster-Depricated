@@ -1,6 +1,10 @@
 class Block:
+    """Class for block object"""
+
     # Initializing block type when object is created and defining the shape
     def __init__(self, blockType):
+        self.x = 4
+        self.y = 22
         self.type = blockType
         self.blockShape = []
         self.shape()
@@ -28,3 +32,10 @@ class Block:
     def rotate(self):
         self.blockShape = list(zip(*self.blockShape[::-1]))
         return
+
+    # Drawing piece on board
+    def draw(self, board):
+        for i in range(len(self.blockShape) - 1):
+            for j in range(len(self.blockShape[i] - 1)):
+                board[self.x + i][self.y + j] = self.blockShape[i][j]
+        return board
