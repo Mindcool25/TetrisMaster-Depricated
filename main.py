@@ -42,6 +42,6 @@ def printBoard(playfield):
 
 block = block.Block(randint(1, 7))
 for i in range(20):
-    block.update()
+    block.drop()
     time.sleep(0.5)
     printBoard(block.draw(createBoard()))

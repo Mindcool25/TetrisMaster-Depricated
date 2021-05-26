@@ -56,3 +56,20 @@ class Block:
         return
 
     
+
+    # Moving piece down
+    def drop(self):
+        self.y += 1
+        return
+
+    # Moving piece to the right
+    def right(self):
+        self.x += 1
+        return
+
+    # Moving piece to the lift
+    def left(self):
+        self.x -= 1
+        return
+
+    
