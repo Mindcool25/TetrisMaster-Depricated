@@ -9,18 +9,27 @@ def createBoard() -> object:
     playfield = []
     for i in range(22):
         row = []
+        row.append(-1)
         for j in range(10):
             row.append(0)
+        row.append(-1)
         playfield.append(row)
+    row = []
+    for j in range(11):
+        row.append(-2)
+    playfield.append(row)
     return playfield
 
 
 def printBoard(playfield):
     board = ""
     for i in playfield:
-        board += Fore.WHITE + "|"
         for j in i:
-            if j == 0:
+            if j == -2:
+                board += Fore.WHITE + "[|]"
+            elif j == -1:
+                board += Fore.WHITE + "|"
+            elif j == 0:
                 board += Fore.WHITE + " . "
             elif j == 1:
                 board += Fore.LIGHTBLUE_EX + "[ ]"
@@ -36,13 +45,14 @@ def printBoard(playfield):
                 board += Fore.RED + "[ ]"
             elif j == 7:
                 board += Fore.MAGENTA + "[ ]"
-        board += Fore.WHITE + "|\n"
-    board += (Fore.WHITE + "_" * 32) + "\n"
+        board += Fore.WHITE + "\n"
     print(board)
 
 
 block = block.Block(1)
+board = createBoard()
 for i in range(20):
-    block.update(createBoard())
+    block.drop()
     time.sleep(0.5)
-    printBoard(block.draw(createBoard()))
+    board = block.draw(board)
+    printBoard(board)
