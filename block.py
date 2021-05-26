@@ -3,7 +3,7 @@ class Block:
 
     # Initializing block type when object is created and defining the shape
     def __init__(self, blockType):
-        self.x = 4
+        self.x = 6
         self.y = 0
         self.type = blockType
         self.blockShape = []
@@ -55,21 +55,11 @@ class Block:
         self.x -= 1
         return
 
-    
-
-    # Moving piece down
-    def drop(self):
-        self.y += 1
+    # Frame by frame
+    def update(self, board):
+        for i in range(len(self.blockShape) - 1):
+            for j in range(len(self.blockShape[i]) - 1):
+                print(self.y + j, self.x)
+                if board[self.y + j][self.x] == 0:
+                    self.drop()
         return
-
-    # Moving piece to the right
-    def right(self):
-        self.x += 1
-        return
-
-    # Moving piece to the lift
-    def left(self):
-        self.x -= 1
-        return
-
-    

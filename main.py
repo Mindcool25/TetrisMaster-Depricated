@@ -1,5 +1,6 @@
 from colorama import Fore
 from random import randint
+import os
 import block
 import time
 
@@ -40,8 +41,8 @@ def printBoard(playfield):
     print(board)
 
 
-block = block.Block(randint(1, 7))
+block = block.Block(1)
 for i in range(20):
-    block.drop()
+    block.update(createBoard())
     time.sleep(0.5)
     printBoard(block.draw(createBoard()))
