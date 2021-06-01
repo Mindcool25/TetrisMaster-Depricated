@@ -3,6 +3,7 @@ from random import randint
 import os
 import block
 import time
+import os
 
 
 def createBoard() -> object:
@@ -43,6 +44,7 @@ def printBoard(playfield):
 
 block = block.Block(1)
 for i in range(20):
-    block.update(createBoard())
+    block.drop()
     time.sleep(0.5)
+    os.system('cls' if os.name == 'nt' else 'clear')
     printBoard(block.draw(createBoard()))

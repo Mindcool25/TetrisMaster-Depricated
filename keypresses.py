@@ -4,11 +4,13 @@ from random import randint
 
 keyboard = Controller()
 
+
 def rotate():
     keyboard.press(Key.up)
     keyboard.release(Key.up)
-    delay()    
+    delay()
     return
+
 
 def left():
     keyboard.press(Key.left)
@@ -16,11 +18,13 @@ def left():
     delay()
     return
 
+
 def right():
     keyboard.press(Key.right)
     keyboard.release(Key.right)
     delay()
     return
+
 
 def down():
     keyboard.press(Key.down)
@@ -28,11 +32,13 @@ def down():
     delay()
     return
 
+
 def space():
     keyboard.press(Key.space)
     keyboard.release(Key.space)
     delay()
     return
+
 
 def switchScreens():
     keyboard.press(Key.alt)
@@ -41,7 +47,8 @@ def switchScreens():
     keyboard.release(Key.alt)
     return
 
+
 def delay():
     delaytime = randint(10, 30)
-    time.sleep(delaytime/100)
+    time.sleep(delaytime / 100)
     return
