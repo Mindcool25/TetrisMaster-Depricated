@@ -27,6 +27,7 @@ def createBoard() -> object:
 # Function to print the board with correct coloration
 def printBoard(playfield):
     board = ""
+    # All the color fun stuff
     for i in playfield:
         for j in i:
             if j == -2:
@@ -53,10 +54,13 @@ def printBoard(playfield):
     print(board)
 
 
-block = block.Block(1)
+obj = block.Block(1)
 board = createBoard()
-for i in range(30):
+for i in range(150):
     os.system('cls' if os.name == 'nt' else 'clear')  # For some reason this only works not in pycharm
-    block.drop(board)
-    board = block.draw(board)
+    obj.drop(board)
+    board = obj.draw(board)
     printBoard(board)
+    if obj.isAtBottom:
+        del obj
+        obj = block.Block(randint(1, 7))

@@ -8,6 +8,7 @@ class Block:
         self.type = blockType
         self.blockShape = []
         self.shape()
+        self.isAtBottom = False
         return
 
     # Setting the shape from block type to a matrix
@@ -57,23 +58,26 @@ class Block:
 
     # Moving piece to the right
     def right(self, board):
-        self.clear(board)
-        self.x += 1
+        if not self.collide(board, 1, 0):
+            self.x += 1
         return
 
     # Moving piece to the lift
     def left(self, board):
-        self.clear(board)
-        self.x -= 1
+        if not self.collide(board, -1, 0):
+            self.x -= 1
         return
 
     # Checking if a movement will be valid
     def collide(self, board, move_x, move_y):
-        collision = False
-        board = self.clear(board)
+        collision = False  # Setting collision to false to allow the block to fall if it doesn't collide with anything
+        board = self.clear(board)  # Clearing board as to not detect itself
+        # Looping through blockShape to check for collisions
         for i in range(len(self.blockShape)):
             for j in range(len(self.blockShape[i])):
-                if self.blockShape[i][j] == 1:
-                    if board[self.y + i + move_y][self.x - j - move_x]:
-                        collision = True
+                # Check if the block occupies a space and if so check for collision
+                if self.blockShape[i][j] != 0 and board[self.y + i + move_y][self.x - j + move_x]:
+                    collision = True
+                    if move_y > 0:
+                        self.isAtBottom = True
         return collision
