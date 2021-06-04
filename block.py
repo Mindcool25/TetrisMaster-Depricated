@@ -37,29 +37,43 @@ class Block:
     def draw(self, board):
         for i in range(len(self.blockShape)):
             for j in range(len(self.blockShape[i])):
-                board[self.y + i][self.x - j] = self.blockShape[i][j]
+                if self.blockShape[i][j] != 0:
+                    board[self.y + i][self.x - j] = self.blockShape[i][j]
+        return board
+
+    # Clearing piece that is moving
+    def clear(self, board):
+        for i in range(len(self.blockShape)):
+            for j in range(len(self.blockShape[i])):
+                if self.blockShape[i][j] != 0:
+                    board[self.y + i][self.x - j] = 0
         return board
 
     # Moving piece down
-    def drop(self):
-        self.y += 1
+    def drop(self, board):
+        if not self.collide(board, 0, 1):
+            self.y += 1
         return
 
     # Moving piece to the right
-    def right(self):
+    def right(self, board):
+        self.clear(board)
         self.x += 1
         return
 
     # Moving piece to the lift
-    def left(self):
+    def left(self, board):
+        self.clear(board)
         self.x -= 1
         return
 
-    # Frame by frame
-    def update(self, board):
-        for i in range(len(self.blockShape) - 1):
-            for j in range(len(self.blockShape[i]) - 1):
-                print(self.y + j, self.x)
-                if board[self.y + j][self.x] == 0:
-                    self.drop()
-        return
+    # Checking if a movement will be valid
+    def collide(self, board, move_x, move_y):
+        collision = False
+        board = self.clear(board)
+        for i in range(len(self.blockShape)):
+            for j in range(len(self.blockShape[i])):
+                if self.blockShape[i][j] == 1:
+                    if board[self.y + i + move_y][self.x - j - move_x]:
+                        collision = True
+        return collision

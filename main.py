@@ -5,6 +5,7 @@ import block
 import time
 
 
+# Creating the board with borders
 def createBoard() -> object:
     playfield = []
     for i in range(22):
@@ -15,18 +16,21 @@ def createBoard() -> object:
         row.append(-1)
         playfield.append(row)
     row = []
-    for j in range(11):
+    row.append(-1)
+    for j in range(10):
         row.append(-2)
+    row.append(-1)
     playfield.append(row)
     return playfield
 
 
+# Function to print the board with correct coloration
 def printBoard(playfield):
     board = ""
     for i in playfield:
         for j in i:
             if j == -2:
-                board += Fore.WHITE + "[|]"
+                board += Fore.WHITE + "---"
             elif j == -1:
                 board += Fore.WHITE + "|"
             elif j == 0:
@@ -51,8 +55,8 @@ def printBoard(playfield):
 
 block = block.Block(1)
 board = createBoard()
-for i in range(20):
-    block.drop()
-    time.sleep(0.5)
+for i in range(30):
+    os.system('cls' if os.name == 'nt' else 'clear')  # For some reason this only works not in pycharm
+    block.drop(board)
     board = block.draw(board)
     printBoard(board)
