@@ -3,8 +3,7 @@ from random import randint
 import os
 import block
 import time
-from msvcrt import getch
-import pynput
+import keyboard
 
 
 # Creating the board with borders
@@ -60,11 +59,19 @@ obj = block.Block(1)
 board = createBoard()
 for i in range(150):
 	os.system('cls' if os.name == 'nt' else 'clear')  # For some reason this only works not in pycharm
-	obj.slam(board)
+	if keyboard.is_pressed("a"):
+		obj.left(board)
+	elif keyboard.is_pressed("s"):
+		obj.slam(board)
+	elif keyboard.is_pressed("d"):
+		obj.right(board)
+	elif keyboard.is_pressed("w"):
+		obj.rotate(board)
+	obj.drop(board)
 	board = obj.draw(board)
 	printBoard(board)
+	time.sleep(0.25)
 	if obj.isAtBottom:
 		del obj
-		time.sleep(0.75)
+		time.sleep(0.5)
 		obj = block.Block(randint(1, 7))
-

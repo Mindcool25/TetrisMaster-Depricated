@@ -30,8 +30,12 @@ class Block:
 		return
 
 	# Easy one liner to rotate the array of a block
-	def rotate(self):
+	def rotate(self, board):
+		backup = self.blockShape
+		self.clear(board)
 		self.blockShape = list(zip(*self.blockShape[::-1]))
+		if self.collide(board, 0, 0):
+			self.blockShape = backup
 		return
 
 	# Drawing piece on board
