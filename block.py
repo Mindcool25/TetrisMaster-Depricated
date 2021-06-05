@@ -68,6 +68,12 @@ class Block:
 			self.x -= 1
 		return
 
+	# Slam piece down the farthest it can go
+	def slam(self, board):
+		for i in range(len(board) - self.y):
+			if not self.collide(board, 0, 1):
+				self.y += 1
+
 	# Checking if a movement will be valid
 	def collide(self, board, move_x, move_y):
 		collision = False  # Setting collision to false to allow the block to fall if it doesn't collide with anything

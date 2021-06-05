@@ -3,6 +3,7 @@ from random import randint
 import os
 import block
 import time
+from msvcrt import getch
 import pynput
 
 
@@ -59,7 +60,7 @@ obj = block.Block(1)
 board = createBoard()
 for i in range(150):
 	os.system('cls' if os.name == 'nt' else 'clear')  # For some reason this only works not in pycharm
-	obj.drop(board)
+	obj.slam(board)
 	board = obj.draw(board)
 	printBoard(board)
 	if obj.isAtBottom:
