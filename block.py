@@ -9,6 +9,7 @@ class Block:
 		self.blockShape = []
 		self.shape()
 		self.isAtBottom = False
+		self.lost = False
 		return
 
 	# Setting the shape from block type to a matrix
@@ -34,6 +35,7 @@ class Block:
 		backup = self.blockShape
 		self.clear(board)
 		self.blockShape = list(zip(*self.blockShape[::-1]))
+		print(self.collide(board, 0, 0))
 		if self.collide(board, 0, 0):
 			self.blockShape = backup
 		return
@@ -91,3 +93,12 @@ class Block:
 					if move_y > 0:
 						self.isAtBottom = True
 		return collision
+
+	# Losing condition
+	def losing(self, board):
+		for i in range(len(board[0]) - 2):
+			if board[0][i + 1] != 0:
+				print()
+				print("You lose")
+				exit()
+		self.lost = True

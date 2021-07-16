@@ -55,23 +55,35 @@ def printBoard(playfield):
 	print(board)
 
 
-obj = block.Block(1)
+# Movement function
+def move():
+	while True:
+		if keyboard.is_pressed("a"):
+			obj.left(board)
+		elif keyboard.is_pressed("s"):
+			obj.slam(board)
+		elif keyboard.is_pressed("d"):
+			obj.right(board)
+		elif keyboard.is_pressed("w"):
+			obj.rotate(board)
+
+
 board = createBoard()
+obj = block.Block(1)
+
 for i in range(150):
 	os.system('cls' if os.name == 'nt' else 'clear')  # For some reason this only works not in pycharm
-	if keyboard.is_pressed("a"):
-		obj.left(board)
-	elif keyboard.is_pressed("s"):
-		obj.slam(board)
-	elif keyboard.is_pressed("d"):
-		obj.right(board)
-	elif keyboard.is_pressed("w"):
-		obj.rotate(board)
 	obj.drop(board)
+	# Moving the block for testing
+	if i % 2 != 0:
+		obj.right(board)
+	else:
+		obj.rotate(board)
 	board = obj.draw(board)
 	printBoard(board)
-	time.sleep(0.25)
+	# time.sleep(0.25)
 	if obj.isAtBottom:
+		obj.losing(board)
 		del obj
-		time.sleep(0.5)
+		# time.sleep(0.5)
 		obj = block.Block(randint(1, 7))
