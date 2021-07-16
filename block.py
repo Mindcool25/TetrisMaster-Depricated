@@ -35,9 +35,21 @@ class Block:
 		backup = self.blockShape
 		self.clear(board)
 		self.blockShape = list(zip(*self.blockShape[::-1]))
-		print(self.collide(board, 0, 0))
-		if self.collide(board, 0, 0):
-			self.blockShape = backup
+		for i in range(len(self.blockShape)):
+			for j in range(len(self.blockShape[i - 1])):
+				if self.blockShape[i - 2][j - 2] != 0:
+					print("Checking...")
+					try:
+						if board[self.y + i - 1][self.x + j - 1] != 0:
+							print("HIT?")
+							self.blockShape = backup
+					except:
+						print("didn't work")
+				else:
+					print("blank")
+				print(f"i: {i}\nj:{j}")
+				# print(f"BLOCK: {self.blockShape[i - 1][j - 1]} at [{i - 1}] [{j - 1}]\nBOARD: {board[self.y - i - 1][self.x + j - 1]} at [{self.y + i - 1}] [{self.x + j - 1}]")
+				print(board)
 		return
 
 	# Drawing piece on board
