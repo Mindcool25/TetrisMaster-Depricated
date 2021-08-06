@@ -32,32 +32,36 @@ class Block:
 
 	# Easy one liner to rotate the array of a block
 	def rotate(self, board):
+		# For some reason it still allows rotation after the block lands on another block.
+		# Not sure how to fix that at this moment.
 		backup = self.blockShape
 		self.clear(board)
 		self.blockShape = list(zip(*self.blockShape[::-1]))
-		for i in range(len(self.blockShape)):
-			for j in range(len(self.blockShape[i - 1])):
-				if self.blockShape[i - 2][j - 2] != 0:
-					print("Checking...")
-					try:
-						if board[self.y + i - 1][self.x + j - 1] != 0:
-							print("HIT?")
+		for row in range(len(self.blockShape)):
+			for column in range(len(self.blockShape[row - 2])):
+				if self.blockShape[row - 2][column - 2] != 0:
+					if row + self.y < len(board) and column + self.x < len(board[0]):
+						if board[row + self.y][column + self.x] != 0:
 							self.blockShape = backup
-					except:
-						print("didn't work")
-				else:
-					print("blank")
-				print(f"i: {i}\nj:{j}")
-				# print(f"BLOCK: {self.blockShape[i - 1][j - 1]} at [{i - 1}] [{j - 1}]\nBOARD: {board[self.y - i - 1][self.x + j - 1]} at [{self.y + i - 1}] [{self.x + j - 1}]")
-				print(board)
+							print("hit")
+							break
+					else:
+						self.blockShape = backup
+						print("hit")
 		return
 
 	# Drawing piece on board
 	def draw(self, board):
-		for i in range(len(self.blockShape)):
-			for j in range(len(self.blockShape[i])):
-				if self.blockShape[i][j] != 0:
-					board[self.y + i][self.x - j] = self.blockShape[i][j]
+		if not self.collide(board, 0, 0):
+			for i in range(len(self.blockShape)):
+				for j in range(len(self.blockShape[i])):
+					if self.blockShape[i][j] != 0:
+						board[self.y + i][self.x - j] = self.blockShape[i][j]
+		else:
+			print()
+			print("You Lose!")
+			exit()
+			self.lost = True
 		return board
 
 	# Clearing piece that is moving
