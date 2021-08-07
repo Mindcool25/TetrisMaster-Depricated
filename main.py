@@ -68,22 +68,22 @@ def move():
 			obj.rotate(board)
 
 
-board = createBoard()
-obj = block.Block(1)
+for j in range(10):
+	board = createBoard()
+	obj = block.Block(1)
 
-for i in range(150):
-	os.system('cls' if os.name == 'nt' else 'clear')  # For some reason this only works not in pycharm
-	obj.drop(board)
-	# Moving the block for testing
-	if i % 2 != 0:
-		obj.right(board)
-	else:
-		obj.rotate(board)
-	board = obj.draw(board)
-	printBoard(board)
-	# time.sleep(0.25)
-	if obj.isAtBottom:
-		obj.losing(board)
-		del obj
-		# time.sleep(0.5)
-		obj = block.Block(randint(1, 7))
+	for i in range(200):
+		# Clearing the screen, doesn't work in pycharm
+		os.system('cls' if os.name == 'nt' else 'clear')
+		# Dropping the block one unit
+		obj.drop(board)
+		if not obj.isAtBottom:
+			obj.newRotate(board)
+		else:
+			obj.losing(board)
+			board = obj.draw(board)
+			del obj
+			obj = block.Block(randint(1, 7))
+		board = obj.draw(board)
+		printBoard(board)
+		input()
