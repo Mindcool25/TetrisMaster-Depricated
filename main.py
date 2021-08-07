@@ -78,7 +78,7 @@ for j in range(10):
 		# Dropping the block one unit
 		obj.drop(board)
 		if not obj.isAtBottom:
-			obj.newRotate(board)
+			obj.rotate(board)
 		else:
 			obj.losing(board)
 			board = obj.draw(board)

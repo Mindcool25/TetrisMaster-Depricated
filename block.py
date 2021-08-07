@@ -3,18 +3,23 @@ class Block:
 
 	# Initializing block type when object is created and defining the shape
 	def __init__(self, blockType):
+		# Initial x and y values
 		self.x = 6
 		self.y = 0
+
+		# setting block properties
 		self.type = blockType
 		self.blockShape = []
-		self.newShape()
+		self.Shape()
 		self.isAtBottom = False
-		self.lost = False
 		self.rotation = 0
+
+		# Setting the lost flag to false
+		self.lost = False
 		return
 
-	# Setting the shape from block type to a matrix
-	def shape(self):
+	# Setting the shape from block type to a matrix (OLD)
+	def shapeOLD(self):
 		if self.type == 1:
 			self.blockShape = [[1, 1, 1, 1], [0, 0, 0, 0]]
 		elif self.type == 2:
@@ -31,7 +36,8 @@ class Block:
 			self.blockShape = [[0, 0, 7, 0], [0, 7, 7, 7]]
 		return
 
-	def newShape(self):
+	# Newer version of setting the shape of the block. Gives all possible states of all blocks as they should be.
+	def Shape(self):
 		if self.type == 1:
 			self.blockShape = [
 				[
@@ -224,7 +230,7 @@ class Block:
 		return
 
 	# Easy one liner to rotate the array of a block
-	def rotate(self, board):
+	def rotateOLD(self, board):
 		# For some reason it still allows rotation after the block lands on another block.
 		# Not sure how to fix that at this moment.
 		backup = self.blockShape[self.rotation]
@@ -240,20 +246,31 @@ class Block:
 					else:
 						self.blockShape[self.rotation] = backup
 		return
-	
+
 	# Second attempt to rotation 
-	def newRotate(self, board):
+	def rotate(self, board):
+		# Saving a backup of the original rotation value
 		oldRotate = self.rotation
+
+		# Make sure the rotation doesn't overflow
 		if self.rotation == 3:
 			newRotate = 0
 		else:
 			newRotate = self.rotation + 1
+
+		# Checking for collisions
+		# iterating through both rows and columns of the blockShape
 		for row in range(len(self.blockShape[newRotate])):
 			for column in range(len(self.blockShape[newRotate][row - 2])):
+				# Making sure that the space in blockShape is occupied
 				if self.blockShape[newRotate][row][column] > 0:
+					# Making sure that the x and y values are withing the playing field
 					if not row + self.y < len(board) and not column + self.x < len(board[0]):
 						print("hit! (side)")
 						break
+
+					# Checking for collisions, rotate if collision isn't found
+					# TODO Fix this part of the program, doesn't seem to be working
 					elif not board[row + self.y][column + self.x] != 0:
 						self.rotation = newRotate
 						print("rotating...")
@@ -264,16 +281,20 @@ class Block:
 
 	# Drawing piece on board
 	def draw(self, board):
+		# Making sure that the newly drawn block won't collide with anything
 		if not self.collide(board, 0, 0):
+			# Iterating through the blockShape and setting the spaces in the board accordingly
 			for i in range(len(self.blockShape[self.rotation])):
 				for j in range(len(self.blockShape[self.rotation][i])):
 					if self.blockShape[self.rotation][i][j] != 0:
 						board[self.y + i][self.x - j] = self.blockShape[self.rotation][i][j]
+		# If the block does collide, the player loses
 		else:
 			print()
 			print("You Lose!")
 			self.lost = True
 			exit()
+		# Returns the newly drawn board
 		return board
 
 	# Clearing piece that is moving
